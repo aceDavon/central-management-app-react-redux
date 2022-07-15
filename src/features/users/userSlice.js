@@ -53,6 +53,15 @@ const userSlice = createSlice({
       const permission = adminId.find((x) => x === payload.id);
       permission ? (state.isAdmin = true) : (state.isAdmin = false);
     },
+    acceptTask: (state) => {
+      const taskData = state.authUser.tasks;
+      taskData.map((x) => (x.accepted = true));
+    },
+    rejectTask: (state, { payload }) => {
+      const { id } = payload;
+      const taskData = state.authUser.tasks;
+      taskData.filter((x) => x.id !== id);
+    },
   },
   extraReducers: (Builder) => {
     Builder.addCase(fetchUsers.pending, (state) => {
