@@ -20,6 +20,7 @@ const supportSlice = createSlice({
       payload.id = id;
       payload.status = 'open';
       state.tickets = state.tickets.concat(payload);
+      state.report.supportAdd = `Ticket ${payload.id} added successfully`;
     },
     resolveTicket: (state, { payload }) => {
       const { id } = payload;
