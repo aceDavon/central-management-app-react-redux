@@ -20,10 +20,14 @@ const taskSlice = createSlice({
       payload.id = initialId.slice(0, 8);
       state.tasksAction = state.tasksAction.concat(payload);
     },
-    removetask: (state, { payload }) => {
+    removeTask: (state, { payload }) => {
       const { id } = payload;
       state.tasks = state.tasks.filter((x) => x.id !== id);
       state.tasksAction = state.tasksAction.map((x) => (x.status = 'removed'));
     },
   },
 });
+
+export const { addTasks, removeTask } = taskSlice.actions;
+
+export default taskSlice.reducer;
