@@ -12,6 +12,7 @@ const initialState = {
   isAdmin: false,
   status: 'idle',
   msg: '',
+  reports: [],
 };
 
 export const fetchUsers = createAsyncThunk('fetch/users', async () => {
@@ -53,14 +54,32 @@ const userSlice = createSlice({
       const permission = adminId.find((x) => x === payload.id);
       permission ? (state.isAdmin = true) : (state.isAdmin = false);
     },
-    acceptTask: (state) => {
+    acceptTask: (state, { payload }) => {
+      const { id } = payload;
+      const msg = state.reports;
       const taskData = state.authUser.tasks;
-      taskData.map((x) => (x.accepted = true));
+      taskData.map((x) =>
+        x.id === id
+          ? (x.accepted = true)
+          : msg.concat((taskAccept = 'Task not assigned to you'))
+      );
     },
     rejectTask: (state, { payload }) => {
       const { id } = payload;
+      const msg = state.reports;
       const taskData = state.authUser.tasks;
       taskData.filter((x) => x.id !== id);
+      msg.concat({ taskReject: `task ${id} rejected` });
+    },
+    assignTask: (state, { payload }) => {
+      const { id, data } = payload;
+      state.authUser = state.authUser.map((x) =>
+        x.id === id
+          ? x.tasks.concat(data)
+          : state.reports.concat(
+              (taskAssign = 'User not found, assign failed!')
+            )
+      );
     },
   },
   extraReducers: (Builder) => {
