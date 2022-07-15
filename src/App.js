@@ -4,9 +4,12 @@ import './App.css';
 import ResponsiveAppBar from './static/Navbar/Navbar';
 import BasicTextFields from './common/Inputs/CommonTextInput';
 import { useDispatch } from 'react-redux';
-import { addUser } from './features/users/userSlice';
+import { addUser, fetchUsers } from './features/users/userSlice';
 
 function App() {
+  React.useEffect(() => {
+    dispatch(fetchUsers());
+  }, []);
   const data = {
     name: 'David',
     username: 'Davon',
