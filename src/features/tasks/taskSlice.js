@@ -1,10 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { intervalToDuration } from 'date-fns';
 import { v4 as uuid } from 'uuid';
 
 const initialState = {
   tasksAction: [],
   status: 'idle',
   tasks: [],
+  reports: {
+    taskRemove: '',
+    taskComplete: '',
+  },
   msg: '',
 };
 
@@ -14,16 +19,46 @@ const taskSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    addTasks: (state, { payload }) => {
-      state.tasks = state.tasks.concat(payload);
-      payload.status = 'awaiting';
-      payload.id = initialId.slice(0, 8);
-      state.tasksAction = state.tasksAction.concat(payload);
+    addTasks: {
+      reducer: (state, { payload }) => {
+        state.tasks = state.tasks.concat(payload);
+        state.tasksAction = state.tasksAction.concat(
+          `task: ${payload.title} added`
+        );
+      },
+      prepare(title, description, category, priority, isoDate) {
+        return {
+          payload: {
+            status: 'awaiting',
+            id: initialId.slice(2, 9),
+            title,
+            description,
+            comments: {
+              author: '',
+              title: '',
+              body: '',
+            },
+            category,
+            priority,
+            date: intervalToDuration({
+              start: new Date(),
+              end: isoDate,
+            }),
+          },
+        };
+      },
     },
     removeTask: (state, { payload }) => {
-      const { id } = payload;
-      state.tasks = state.tasks.filter((x) => x.id !== id);
-      state.tasksAction = state.tasksAction.map((x) => (x.status = 'removed'));
+      state.tasks = state.tasks.filter((x) =>
+        x.id === payload.id
+          ? x.id !== payload.id
+          : (state.reports.taskRemove = 'Failed :(')
+      );
+      state.tasksAction = state.tasksAction.filter((x) =>
+        x.match(payload.title)
+          ? x.match(payload.title) != payload.title
+          : (state.reports.taskRemove = 'Remove failed, not found!')
+      );
     },
   },
 });
