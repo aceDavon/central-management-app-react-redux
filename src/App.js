@@ -14,7 +14,7 @@ function App() {
     name: 'David',
     username: 'Davon',
     email: 'makojidavid@gmail.com',
-    password: 'ghost',
+    password: window.btoa('ghost'),
     phone: '+2348051698758',
   };
   const dispatch = useDispatch();

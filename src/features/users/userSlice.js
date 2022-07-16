@@ -104,4 +104,6 @@ const userSlice = createSlice({
 
 export const { addUser, login } = userSlice.actions;
 
+export const selectAllUsers = (state) => state.users;
+
 export default userSlice.reducer;

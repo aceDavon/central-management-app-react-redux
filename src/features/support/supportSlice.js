@@ -35,4 +35,6 @@ const supportSlice = createSlice({
 
 export const { addTicket, resolveTicket } = supportSlice.actions;
 
+export const selectAllSupport = (state) => state.support;
+
 export default supportSlice.reducer;
