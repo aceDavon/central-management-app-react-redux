@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { sub } from 'date-fns';
+import { intervalToDuration } from 'date-fns';
 import { v4 as uuid } from 'uuid';
 
 const initialState = {
   issues: [],
   status: 'idle',
   msg: '',
-  reports: { issueAdd: {}, issueResolve: {}, issueRemove: {} },
+  reports: { issueAdd: {}, issueResolve: {}, issueRemove: {}, issueAssign: {} },
 };
 
 const initialId = uuid();
@@ -15,12 +15,45 @@ const issueSlice = createSlice({
   name: 'issues',
   initialState,
   reducers: {
-    addIssue: (state, { payload }) => {
-      const id = initialId.slice(0, 8);
-      payload.id = id;
-      payload.date = sub(new Date(), { minutes: 5 });
-      payload.resolved = false;
-      state.issues = state.issues.concat(payload);
+    addIssue: {
+      reducer: (state, { payload }) => {
+        state.issues = state.issues.concat(payload);
+      },
+      prepare(label, status, category, priority, isoDate) {
+        return {
+          payload: {
+            label,
+            description: [
+              {
+                assignedBy: 'davon',
+                assignedTo: 'johnD',
+                dueDate: isoDate,
+                Requirements: 'advanced',
+              },
+            ],
+            status,
+            category,
+            priority,
+            date: intervalToDuration({
+              start: new Date(),
+              end: isoDate,
+            }),
+            resolved: false,
+            id: initialId.slice(2, 9),
+          },
+        };
+      },
+    },
+    assignIssue: (state, { payload }) => {
+      const { id, assignee, username } = payload;
+      state.issues = state.issues.map((x) => {
+        if (x.id === id) {
+          x.description.assignedBy = assignee;
+          x.description.assignedTo = username;
+        } else {
+          state.reports.issueAssign = 'Assign failed, not found!';
+        }
+      });
     },
     resolveIssue: (state, { payload }) => {
       const { id } = payload;
@@ -38,7 +71,8 @@ const issueSlice = createSlice({
   },
 });
 
-export const { addIssue, resolveIssue, removeIssue } = issueSlice.actions;
+export const { addIssue, resolveIssue, removeIssue, assignIssue } =
+  issueSlice.actions;
 
 export const selectAllIssues = (state) => state.issues;
 

@@ -5,6 +5,7 @@ import ResponsiveAppBar from './static/Navbar/Navbar';
 import BasicTextFields from './common/Inputs/CommonTextInput';
 import { useDispatch } from 'react-redux';
 import { addUser, fetchUsers } from './features/users/userSlice';
+import CommonTable from './common/Tables/CommonTable';
 
 function App() {
   React.useEffect(() => {
@@ -34,6 +35,7 @@ function App() {
         <button type='subnit' onClick={(e) => onclick(e)}>
           create
         </button>
+        <CommonTable />
       </Box>
     </Box>
   );

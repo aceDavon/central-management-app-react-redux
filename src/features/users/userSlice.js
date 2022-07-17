@@ -71,7 +71,7 @@ const userSlice = createSlice({
     },
     assignTask: (state, { payload }) => {
       const { id, data } = payload;
-      state.authUser = state.authUser.map((x) =>
+      state.allUsers = state.allUsers.map((x) =>
         x.id === id
           ? x.tasks.concat(data)
           : (state.reports.taskAssign = 'User not found, assign failed!')
