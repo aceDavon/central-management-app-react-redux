@@ -21,7 +21,7 @@ export const useForm = (initialState) => {
 export const CommonForm = (props) => {
   const { children, ...other } = props;
   return (
-    <form {...other}>
+    <form {...other} style={{ marginTop: 50 }}>
       <Paper sx={{ display: "flex", flexDirection: "column", gap: 10, width: "80%", margin: "auto", paddingBottom: 4 }}>
         <Stack gap={4} sx={{ width: "90%", margin: "auto" }}>
           {children}
