@@ -6,7 +6,7 @@ import ResponsiveAppBar from './static/Navbar/Navbar';
 
 function App() {
   return (
-    <Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2}}>
       <ResponsiveAppBar />
       <Outlet />
       <Typography align='center' mt={5} fontSize='15'>&#169; Hevons 2022, All rights reserved</Typography>

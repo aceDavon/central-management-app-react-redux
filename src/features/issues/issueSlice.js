@@ -6,7 +6,12 @@ const initialState = {
   issues: [],
   status: 'idle',
   msg: '',
-  reports: { issueAdd: '', issueResolve: '', issueRemove: '', issueAssign: '' },
+  reports: {
+    issueAdd: null,
+    issueResolve: '',
+    issueRemove: '',
+    issueAssign: '',
+  },
 };
 
 const initialId = uuid();
@@ -18,6 +23,7 @@ const issueSlice = createSlice({
     addIssue: {
       reducer: (state, { payload }) => {
         state.issues = state.issues.concat(payload);
+        state.reports.issueAdd = '';
       },
       prepare(title, description, excerpt, category, priority, isoDate) {
         return {
@@ -28,7 +34,7 @@ const issueSlice = createSlice({
                 assignedBy: 'davon',
                 assignedTo: 'johnD',
                 dueDate: isoDate,
-                Requirements: 'advanced',
+                requirements: 'advanced',
                 description,
               },
             ],
@@ -69,12 +75,21 @@ const issueSlice = createSlice({
       state.issues = state.issues.filter((x) => x.id !== id);
       state.reports.issueRemove = `issue ${id} removed successfully!`;
     },
+    handleModal: (state) => {
+      state.reports.issueAdd = null;
+    },
     catchErr: (state, action) => {},
   },
 });
 
-export const { addIssue, resolveIssue, removeIssue, assignIssue, catchErr } =
-  issueSlice.actions;
+export const {
+  addIssue,
+  resolveIssue,
+  removeIssue,
+  assignIssue,
+  handleModal,
+  catchErr,
+} = issueSlice.actions;
 
 export const selectAllIssues = (state) => state.issues;
 

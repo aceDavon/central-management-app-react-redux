@@ -13,13 +13,15 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import NotificationBell from '../../common/Notification/NotificationBell';
+import { selectAllIssues } from '../../features/issues/issueSlice';
+import { useSelector } from 'react-redux';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
-const ResponsiveAppBar = () => {
+const ResponsiveAppBar = ({sx}) => {
+  const { issues } = useSelector(selectAllIssues);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const issues = [{ id: 1, title: 'First Issue', category: 'main' }];
 
   const settings = [
     'Profile',

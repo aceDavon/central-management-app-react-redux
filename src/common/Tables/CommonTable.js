@@ -17,6 +17,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 function Row(props) {
   const { row } = props;
   const [open, setOpen] = React.useState(false);
+  console.log(row);
 
   return (
     <React.Fragment>
@@ -30,13 +31,10 @@ function Row(props) {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component='th' scope='row'>
-          {row.name}
-        </TableCell>
-        <TableCell align='right'>{row.label}</TableCell>
+        <TableCell align='right'>{row.title}</TableCell>
         <TableCell align='right'>{row.category}</TableCell>
         <TableCell align='right'>{row.priority}</TableCell>
-        <TableCell align='right'>{row.status}</TableCell>
+        <TableCell align='right'>{row.resolved}</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -48,10 +46,11 @@ function Row(props) {
               <Table size='small' aria-label='purchases'>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Assigned By</TableCell>
-                    <TableCell>Assigned To</TableCell>
-                    <TableCell align='right'>Due Date</TableCell>
-                    <TableCell align='right'>Requirements</TableCell>
+                    <TableCell width={'20%'}>Assigned By</TableCell>
+                    <TableCell width={'25%'}>Assigned To</TableCell>
+                    <TableCell width={'25%'}>Due Date</TableCell>
+                    <TableCell width={'25%'}>Requirements</TableCell>
+                    <TableCell width={'25%'}>description</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -60,9 +59,10 @@ function Row(props) {
                       <TableCell component='th' scope='row'>
                         {desc.assignedBy}
                       </TableCell>
-                      <TableCell>{desc.assignedto}</TableCell>
-                      <TableCell align='right'>{desc.dueDate}</TableCell>
-                      <TableCell align='right'>{desc.requirements}</TableCell>
+                      <TableCell>{desc.assignedTo}</TableCell>
+                      <TableCell>{row.date.days}</TableCell>
+                      <TableCell>{desc.requirements}</TableCell>
+                      <TableCell>{desc.description}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -77,7 +77,7 @@ function Row(props) {
 
 Row.propTypes = {
   row: PropTypes.shape({
-    label: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     prioriy: PropTypes.string.isRequired,
     description: PropTypes.arrayOf(
@@ -89,7 +89,7 @@ Row.propTypes = {
       })
     ).isRequired,
     date: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
+    resolved: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -98,22 +98,29 @@ export default function CommonTable({ topHeaders, rowData }) {
     <TableContainer component={Paper}>
       <Table aria-label='collapsible table'>
         <TableHead>
-          <TableRow>
+          <TableRow
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-start',
+              width: '100%',
+            }}
+          >
             <TableCell />
-            {topHeaders.map((x) => x)}
+            <Typography variant='h5' color={'error'}>
+              {topHeaders}
+            </Typography>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rowData.map((row) => (
-            <Row key={row.id} row={row} />
-          ))}
+          {rowData.length !== 0 ? (
+            rowData.map((row) => <Row key={row.id} row={row} />)
+          ) : (
+            <Typography variant='h4' color={'error'}>
+              No issues here yet, check back later :(
+            </Typography>
+          )}
         </TableBody>
       </Table>
     </TableContainer>
   );
 }
-
-CommonTable.propTypes = {
-  topHeaders: PropTypes.array.isRequired,
-  rowData: PropTypes.array,
-};
