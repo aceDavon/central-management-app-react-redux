@@ -25,6 +25,7 @@ import CommonTable from '../../common/Tables/CommonTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { handleModal, selectAllIssues } from '../issues/issueSlice';
 import { useNavigate } from 'react-router-dom';
+import { clearModal } from '../tasks/taskSlice';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -90,7 +91,7 @@ const menuItems = [
 export default function BasicGrid() {
   const [open, setOpen] = React.useState(true);
   const { issues, reports } = useSelector(selectAllIssues);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [path, setPath] = React.useState('');
   const navigate = useNavigate();
   console.log(issues);
@@ -105,7 +106,8 @@ export default function BasicGrid() {
 
   React.useEffect(() => {
     navigate(path, { replace: true });
-    dispatch(handleModal())
+    dispatch(handleModal());
+    dispatch(clearModal());
   }, [path, navigate, reports]);
 
   return (

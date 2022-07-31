@@ -9,6 +9,7 @@ const initialState = {
   reports: {
     taskRemove: '',
     taskComplete: '',
+    taskAdd: null,
   },
   msg: '',
 };
@@ -19,20 +20,23 @@ const taskSlice = createSlice({
   name: 'tasks',
   initialState,
   reducers: {
-    addTasks: {
+    addTask: {
       reducer: (state, { payload }) => {
         state.tasks = state.tasks.concat(payload);
         state.tasksAction = state.tasksAction.concat(
           `task: ${payload.title} added`
         );
+        state.reports.taskAdd = ''
       },
-      prepare(title, description, category, priority, isoDate) {
+      prepare(title, description, category, excerpt, priority, isoDate) {
+        console.log(isoDate)
         return {
           payload: {
             status: 'awaiting',
             id: initialId.slice(2, 9),
             title,
             description,
+            excerpt,
             comments: {
               author: '',
               title: '',
@@ -56,14 +60,21 @@ const taskSlice = createSlice({
       );
       state.tasksAction = state.tasksAction.filter((x) =>
         x.match(payload.title)
-          ? x.match(payload.title) != payload.title
+          ? x.match(payload.title) !== payload.title
           : (state.reports.taskRemove = 'Remove failed, not found!')
       );
     },
+    clearModal: (state) => {
+      state.reports.taskAdd = null
+    },
+    catchErr: (state) => {
+
+    }
   },
+
 });
 
-export const { addTasks, removeTask } = taskSlice.actions;
+export const { addTask, removeTask, clearModal, catchErr } = taskSlice.actions;
 
 export const selectAllTasks = (state) => state.tasks;
 
