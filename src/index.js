@@ -7,6 +7,7 @@ import { Store } from './app/Store';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import CreateIssues from './features/issues/createIssues';
 import Dashboard from './features/users/dashboard';
+import IssuesContainer from './features/issues/issuesContainer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,8 +15,9 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route element={<App />} path={'/'}>
-          <Route path='/issues' element={<CreateIssues />}>
-            
+          <Route path='/issues'>
+            <Route path='create' element={<CreateIssues />} />
+            <Route path='all' element={<IssuesContainer />} />
           </Route>
           <Route path='/users'>
             <Route path='dashboard' element={<Dashboard />} />

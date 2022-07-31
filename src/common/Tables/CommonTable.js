@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import Commonbtns from '../Btn/commonBtns';
 
 function Row(props) {
   const { row } = props;
@@ -22,7 +23,7 @@ function Row(props) {
   return (
     <React.Fragment>
       <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
-        <TableCell>
+        <TableCell scope='row' component='th' align='center'>
           <IconButton
             aria-label='expand row'
             size='small'
@@ -30,6 +31,20 @@ function Row(props) {
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
+          <Commonbtns
+            variant={'contained'}
+            color={'warning'}
+            children={'delete'}
+            size='small'
+            sx={{ margin: 1 }}
+          />
+          <Commonbtns
+            variant={'contained'}
+            color={'primary'}
+            children={'resolve'}
+            size='small'
+            sx={{ margin: 1 }}
+          />
         </TableCell>
         <TableCell align='right'>{row.title}</TableCell>
         <TableCell align='right'>{row.category}</TableCell>
@@ -46,7 +61,7 @@ function Row(props) {
               <Table size='small' aria-label='purchases'>
                 <TableHead>
                   <TableRow>
-                    <TableCell width={'20%'}>Assigned By</TableCell>
+                    <TableCell width={'25%'}>Assigned By</TableCell>
                     <TableCell width={'25%'}>Assigned To</TableCell>
                     <TableCell width={'25%'}>Due Date</TableCell>
                     <TableCell width={'25%'}>Requirements</TableCell>
@@ -98,28 +113,27 @@ export default function CommonTable({ topHeaders, rowData }) {
     <TableContainer component={Paper}>
       <Table aria-label='collapsible table'>
         <TableHead>
-          <TableRow
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-start',
-              width: '100%',
-            }}
-          >
-            <TableCell />
-            <Typography variant='h5' color={'error'}>
-              {topHeaders}
-            </Typography>
+          <TableRow>
+            <TableCell align='center'>Actions</TableCell>
+            <TableCell align='right'>Title</TableCell>
+            <TableCell align='right'>Category</TableCell>
+            <TableCell align='right'>Priority</TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>
-          {rowData.length !== 0 ? (
-            rowData.map((row) => <Row key={row.id} row={row} />)
-          ) : (
-            <Typography variant='h4' color={'error'}>
-              No issues here yet, check back later :(
-            </Typography>
-          )}
-        </TableBody>
+        {rowData.length !== 0 ? 
+          <TableBody>
+            {rowData.map((row) => <Row key={row.id} row={row} />)}
+          </TableBody>
+         : 
+          <Typography
+            variant='h4'
+            color={'error'}
+            textAlign='center'
+            width='100%'
+          >
+            No issues here yet, check back later :(
+          </Typography>
+        }
       </Table>
     </TableContainer>
   );

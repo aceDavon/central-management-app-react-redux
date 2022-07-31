@@ -40,7 +40,7 @@ const cardData = [
     cardImage:
       'https://web-static.wrike.com/blog/content/uploads/2020/07/Common-Project-Management-Issues-You-Can-Solve-With-the-Right-Tools-1-896x518.jpg?av=24fb349d7691c6ee5c17ebd25a1cedb5',
     cardHeader: 'Issues',
-    color: '#000',
+    color: 'green',
   },
   {
     cardImage:
@@ -59,7 +59,7 @@ const menuItems = [
       {
         label: 'Add Issue',
         labelIcon: <AddBusinessOutlined color='primary' />,
-        link: '/issues',
+        link: '/issues/create',
       },
       {
         label: 'See All Issues',
@@ -76,7 +76,7 @@ const menuItems = [
       {
         label: 'Add Tasks',
         labelIcon: <AddTaskSharp color='primary' />,
-        link: '/tasks',
+        link: '/tasks/create',
       },
       {
         label: 'See All Tasks',
