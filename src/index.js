@@ -6,6 +6,7 @@ import App from './App';
 import { Provider } from 'react-redux';
 import { Store } from './app/Store';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Issuecreate from './features/issues/issuecreate';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,6 +15,7 @@ root.render(
       <Routes>
         <Route element={<App />} path={'/'}>
           <Route path='/issues'>
+            <Route path='create' element={<Issuecreate />} />
           </Route>
           <Route path='/users'>
           </Route>

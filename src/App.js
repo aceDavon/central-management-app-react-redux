@@ -1,5 +1,4 @@
 import Navbar from './static/navbar';
-import './App.css';
 import { Outlet } from 'react-router-dom';
 import Footer from './static/footer';
 import SideBar from './static/sideBar';

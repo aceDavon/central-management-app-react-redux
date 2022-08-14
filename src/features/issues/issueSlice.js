@@ -12,6 +12,7 @@ const initialState = {
     issueRemove: '',
     issueAssign: '',
   },
+  err: {}
 };
 
 const initialId = uuid();
@@ -25,7 +26,7 @@ const issueSlice = createSlice({
         state.issues = state.issues.concat(payload);
         state.reports.issueAdd = '';
       },
-      prepare(title, description, excerpt, category, priority, isoDate) {
+      prepare(title, description, excerpts, category, priority, isoDate) {
         return {
           payload: {
             title,
@@ -38,7 +39,7 @@ const issueSlice = createSlice({
                 description,
               },
             ],
-            excerpt,
+            excerpts,
             category,
             priority,
             date: intervalToDuration({
@@ -78,7 +79,9 @@ const issueSlice = createSlice({
     handleModal: (state) => {
       state.reports.issueAdd = null;
     },
-    catchErr: (state, action) => {},
+    catchErr: (state, action) => {
+      state.err = action.payload
+    },
   },
 });
 
