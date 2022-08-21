@@ -8,7 +8,7 @@ const CommonModal = ({ modalHeader, modalBody, btnText }) => {
   const handleClick = (e) => {
     e.preventDefault();
     dispatch(handleModal());
-    navigate('/', {replace: true})
+    navigate('/users/dashboard', {replace: true})
   };
   return (
     <div className='w-6/12 h-1/4 shadow-lg flex flex-col gap-4 shadow-slate-200 rounded-md bg-gray-200 px-4 py-2 absolute top-1/4 left-1/4'>

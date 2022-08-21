@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import { Store } from './app/Store';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Issuecreate from './features/issues/issuecreate';
+import Login from './features/users/login';
+import Dashboard from './features/users/dashboard';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,6 +20,8 @@ root.render(
             <Route path='create' element={<Issuecreate />} />
           </Route>
           <Route path='/users'>
+            <Route path='login' element={<Login />} />
+            <Route path='dashboard' element={<Dashboard />} />
           </Route>
           <Route path='/tasks'>
           </Route>
