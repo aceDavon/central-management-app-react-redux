@@ -59,13 +59,19 @@ const Issuecreate = () => {
 
   return (
     <div className='flex flex-col gap-2 align-top w-full relative'>
-      {reports.issueAdd === '' && <CommonModal modalBody={modalBody} modalHeader={modalHeader} btnText={btnText}/>}
+      {reports.issueAdd === '' && (
+        <CommonModal
+          modalBody={modalBody}
+          modalHeader={modalHeader}
+          btnText={btnText}
+        />
+      )}
       <h1 className='text-blue-500 text-4xl'>Create Issues</h1>
       <form
         className='grid grid-cols-2 gap-2 md:grid-col-1 px-4 mx-auto w-8/12'
         onSubmit={(e) => handleSubmit(e)}
       >
-        <div className='flex flex-col gap-1 col-span-6'>
+        <div className='flex flex-col col-span-6'>
           <CommonInput
             sx={
               'h-4 px-2 py-4 w-full border border-gray-300 focus:outline-none focus:bg-slate-200'
@@ -79,7 +85,7 @@ const Issuecreate = () => {
             {err.titleErr && err.titleErr}
           </span>
         </div>
-        <div className='flex flex-col gap-1 col-span-6'>
+        <div className='flex flex-col col-span-6'>
           <CommonInput
             sx={
               'h-4 px-2 py-4 w-full border border-gray-300 focus:outline-none focus:bg-slate-200'
@@ -95,7 +101,7 @@ const Issuecreate = () => {
         </div>
         <div className='block col-span-12'>
           <div className='flex flex-col gap-1'>
-            <span>Category</span>
+            <span className='text-base'>Category: {category && category}</span>
             <CommonSelect
               sx={
                 'h-4 px-2 py-4 w-full border border-gray-300 focus:outline-none focus:bg-slate-200 italic'
@@ -109,7 +115,7 @@ const Issuecreate = () => {
             </span>
           </div>
           <div className='flex flex-col gap-1'>
-            <span>Priority</span>
+            <span className='text-base'>Priority: {priority && priority}</span>
             <CommonSelect
               sx={
                 'h-4 px-2 py-4 w-full border border-gray-300 focus:outline-none focus:bg-slate-200 italic'
