@@ -10,6 +10,7 @@ import Issuecreate from './features/issues/issuecreate';
 import Login from './features/users/login';
 import Dashboard from './features/users/dashboard';
 import IssuesContainer from './features/issues/issuesContainer';
+import CreateTask from './features/tasks/createTask';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -27,6 +28,7 @@ root.render(
             <Route path='tasks' />
           </Route>
           <Route path='/tasks'>
+            <Route path='create' element={<CreateTask />} />
           </Route>
         </Route>
       </Routes>

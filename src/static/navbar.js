@@ -63,7 +63,7 @@ const Navbar = () => {
           <div className='dropdown relative'>
             <button
               type='button'
-              class='flex justify-center transition duration-150 ease-in-out'
+              className='flex justify-center transition duration-150 ease-in-out'
               data-bs-toggle='tooltip'
               data-bs-placement='bottom'
               title={tasks.length < 1 ? 'You don\'t have any tasks assigned' : `You have ${tasks.length} tasks assigned`} >

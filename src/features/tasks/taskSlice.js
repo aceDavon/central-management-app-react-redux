@@ -11,6 +11,7 @@ const initialState = {
     taskComplete: '',
     taskAdd: null,
   },
+  errors: {},
   msg: '',
 };
 
@@ -26,24 +27,23 @@ const taskSlice = createSlice({
         state.tasksAction = state.tasksAction.concat(
           `task: ${payload.title} added`
         );
-        state.reports.taskAdd = ''
+        state.reports.taskAdd = '';
       },
-      prepare(title, description, category, excerpt, priority, isoDate) {
-        console.log(isoDate)
+      prepare(title, description, category, excerpts, isoDate) {
         return {
           payload: {
             status: 'awaiting',
             id: initialId.slice(2, 9),
             title,
             description,
-            excerpt,
+            excerpts,
             comments: {
               author: '',
               title: '',
               body: '',
             },
             category,
-            priority,
+            priority: 'default',
             date: intervalToDuration({
               start: new Date(),
               end: isoDate,
@@ -65,13 +65,12 @@ const taskSlice = createSlice({
       );
     },
     clearModal: (state) => {
-      state.reports.taskAdd = null
+      state.reports.taskAdd = null;
     },
-    catchErr: (state) => {
-
-    }
+    catchErr: (state, { payload }) => {
+      state.errors = payload;
+    },
   },
-
 });
 
 export const { addTask, removeTask, clearModal, catchErr } = taskSlice.actions;
