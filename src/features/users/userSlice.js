@@ -3,7 +3,6 @@ import axios from 'axios';
 import { sub } from 'date-fns';
 import { v4 as uuid } from 'uuid';
 
-const initialId = uuid();
 const adminId = [1, 2, 3, 4, 5];
 const initialState = {
   allUsers: [],
@@ -18,7 +17,7 @@ const initialState = {
 export const fetchUsers = createAsyncThunk('fetch/users', async () => {
   try {
     const data = axios.get('https://fakestoreapi.com/users');
-    return data;
+    return await (await data).data;
   } catch (error) {
     return error.message;
   }
@@ -32,7 +31,6 @@ const userSlice = createSlice({
       reducer: (state, { payload }) => {
         const user = payload.user;
         user.tasks = [];
-        user.id = initialId.slice(0, 8);
         user.date = sub(new Date(), { minutes: 10 });
         state.allUsers = state.allUsers.concat(user);
       },
@@ -51,8 +49,17 @@ const userSlice = createSlice({
     login: (state, { payload }) => {
       state.authUser = payload;
       state.isLoggedIn = true;
+      state.msg = "Logged in successfully, redirecting to dashboard";
       const permission = adminId.find((x) => x === payload.id);
       permission ? (state.isAdmin = true) : (state.isAdmin = false);
+    },
+    failedLogin: (state) => {
+      state.msg = "User with details not found, Please try with valid credentials"
+    },
+    logout: (state) => {
+      state.authUser = {};
+      state.isLoggedIn = false;
+      state.isAdmin = false;
     },
     acceptTask: (state, { payload }) => {
       const { id } = payload;
@@ -83,8 +90,9 @@ const userSlice = createSlice({
       state.status = 'pending';
     })
       .addCase(fetchUsers.fulfilled, (state, { payload }) => {
-        const obj = payload.data;
-        const data = obj.map((x) => {
+        // const obj = payload.data;
+        const data = payload.map((x) => {
+          const initialId = uuid();
           return {
             ...x,
             id: initialId.slice(0, 8),
@@ -102,7 +110,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { addUser, login } = userSlice.actions;
+export const { addUser, login, failedLogin, logout } = userSlice.actions;
 
 export const selectAllUsers = (state) => state.users;
 

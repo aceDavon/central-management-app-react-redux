@@ -11,6 +11,8 @@ import Login from './features/users/login';
 import Dashboard from './features/users/dashboard';
 import IssuesContainer from './features/issues/issuesContainer';
 import CreateTask from './features/tasks/createTask';
+import Welcome from './static/Welcome';
+import Tasks from './features/tasks/taskContainer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,17 +20,19 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route element={<App />} path={'/'}>
+          <Route element={<Welcome />} index />
           <Route path='/issues'>
             <Route path='create' element={<Issuecreate />} />
             <Route element={<IssuesContainer />} path='all'/>
           </Route>
           <Route path='/users'>
-            <Route path='login' element={<Login />} />
+            <Route element={<Login />} index />
             <Route path='dashboard' element={<Dashboard />} />
             <Route path='tasks' />
           </Route>
           <Route path='/tasks'>
             <Route path='create' element={<CreateTask />} />
+            <Route path='all' element={<Tasks />} />
           </Route>
         </Route>
       </Routes>

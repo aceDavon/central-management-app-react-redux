@@ -68,7 +68,7 @@ const taskSlice = createSlice({
       state.reports.taskAdd = null;
     },
     catchErr: (state, { payload }) => {
-      state.errors = payload;
+      state.reports.taskAdd = payload;
     },
   },
 });

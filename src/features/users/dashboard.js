@@ -10,7 +10,7 @@ const Dashboard = () => {
         <nav className='rounded-md w-full'>
           <ol className='list-reset flex'>
             <li>
-              <a href='#' className='text-blue-600 hover:text-blue-700'>
+              <a href='/#' className='text-blue-600 hover:text-blue-700'>
                 Home
               </a>
             </li>
@@ -18,7 +18,7 @@ const Dashboard = () => {
               <span className='text-gray-500 mx-2'>/</span>
             </li>
             <li>
-              <a href='#' className='text-blue-600 hover:text-blue-700'>
+              <a href='/#' className='text-blue-600 hover:text-blue-700'>
                 Users
               </a>
             </li>
@@ -39,25 +39,25 @@ const Dashboard = () => {
           <p className='text-lg text-center text-blue-700'>20</p>
         </div>
       </div>
-      <h3 className='font-bold text-lg text-blue-600'>
+      <h3 className='font-bold text-lg text-blue-600 ml-5 lg:ml-0'>
         All Tasks Assigned to you today
       </h3>
-      <div class='flex flex-col w-11/12 mx-auto'>
-        <div class='overflow-x-auto sm:-mx-6 lg:-mx-8'>
-          <div class='py-2 inline-block min-w-full sm:px-6 lg:px-8'>
-            <div class='overflow-hidden'>
-              <table class='min-w-full'>
-                <thead class='bg-white border-b'>
+      <div className='flex flex-col w-11/12 mx-auto'>
+        <div className='overflow-x-auto sm:-mx-6 lg:-mx-8'>
+          <div className='py-2 inline-block min-w-full sm:px-6 lg:px-8'>
+            <div className='overflow-hidden'>
+              <table className='min-w-full'>
+                <thead className='bg-white border-b'>
                   <tr>
                     <th
                       scope='col'
-                      class='text-sm font-medium text-gray-900 px-6 py-4 text-left'
+                      className='text-sm font-medium text-gray-900 px-6 py-4 text-left'
                     >
                       #
                     </th>
                     <th
                       scope='col'
-                      class='text-sm font-medium text-gray-900 px-6 py-4 text-left'
+                      className='text-sm font-medium text-gray-900 px-6 py-4 text-left'
                     >
                       Task
                     </th>
@@ -69,13 +69,13 @@ const Dashboard = () => {
                     </th>
                     <th
                       scope='col'
-                      class='text-sm font-medium text-gray-900 px-6 py-4 text-left'
+                      className='text-sm font-medium text-gray-900 px-6 py-4 text-left'
                     >
                       Deadline
                     </th>
                     <th
                       scope='col'
-                      class='text-sm font-medium text-gray-900 px-6 py-4 text-left'
+                      className='text-sm font-medium text-gray-900 px-6 py-4 text-left'
                     >
                       Category
                     </th>
@@ -84,20 +84,20 @@ const Dashboard = () => {
                 <tbody>
                   {tasks.map((task) => {
                     return (
-                      <tr class='bg-gray-100 even:bg-white border-b'>
-                        <td class='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
+                      <tr className='bg-gray-100 even:bg-white border-b'>
+                        <td className='px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900'>
                           {task.id}
                         </td>
-                        <td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
+                        <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                           {task.title}
                         </td>
-                        <td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
+                        <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                           {task.excerpts}
                         </td>
-                        <td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
+                        <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                           {task.date.days} days
                         </td>
-                        <td class='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
+                        <td className='text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap'>
                           {task.category}
                         </td>
                       </tr>

@@ -1,11 +1,16 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectAllTasks } from '../features/tasks/taskSlice';
 import { Bell, Hamburger } from '../Icons';
-import Logo from '../app/img/logo.png'
+import Logo from '../app/img/logo.png';
+import { logout } from '../features/users/userSlice';
 
 const Navbar = () => {
-  const { tasks } = useSelector(selectAllTasks)
+  const dispatch = useDispatch();
+  const { tasks } = useSelector(selectAllTasks);
+  const handleClick = () => {
+    dispatch(logout());
+  }
   return (
     <nav
       className=' relative w-full flex flex-wrap items-center justify-between py-4 bg-gray-100 text-gray-500 hover:text-gray-700 focus:text-gray-700 shadow-lg navbar navbar-expand-lg navbar-light ' >
@@ -25,7 +30,7 @@ const Navbar = () => {
           id='navbarSupportedContent' >
           <a
             className=' flex items-center text-gray-900 hover:text-gray-900 focus:text-gray-900 mt-2 lg:mt-0 mr-1'
-            href='#' >
+            href='/#' >
             <img
               src={Logo}
               style={{ height: '20px' }}
@@ -37,14 +42,14 @@ const Navbar = () => {
             <li className='nav-item p-2'>
               <a
                 className='nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0'
-                href='#' >
+                href='/#' >
                 Dashboard
               </a>
             </li>
             <li className='nav-item p-2'>
               <a
                 className='nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0'
-                href='#'
+                href='/#'
               >
                 Team
               </a>
@@ -52,7 +57,7 @@ const Navbar = () => {
             <li className='nav-item p-2'>
               <a
                 className='nav-link text-gray-500 hover:text-gray-700 focus:text-gray-700 p-0'
-                href='#'
+                href='/#'
               >
                 Projects
               </a>
@@ -69,7 +74,7 @@ const Navbar = () => {
               title={tasks.length < 1 ? 'You don\'t have any tasks assigned' : `You have ${tasks.length} tasks assigned`} >
               <a
                 className=' text-gray-500 hover:text-gray-700 focus:text-gray-700 mr-4 dropdown-toggle hidden-arrow flex items-center'
-                href='#'
+                href='/#'
                 id='dropdownMenuButton1'
                 role='button'
                 data-bs-toggle='dropdown'
@@ -87,21 +92,21 @@ const Navbar = () => {
               <li>
                 <a
                   className=' dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100'
-                  href='#' >
+                  href='/#' >
                   Action
                 </a>
               </li>
               <li>
                 <a
                   className=' dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100'
-                  href='#' >
+                  href='/#' >
                   Another action
                 </a>
               </li>
               <li>
                 <a
                   className=' dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100'
-                  href='#' >
+                  href='/#' >
                   Something else here
                 </a>
               </li>
@@ -110,7 +115,7 @@ const Navbar = () => {
           <div className='dropdown relative'>
             <a
               className='dropdown-toggle flex items-center hidden-arrow'
-              href='#'
+              href='/#'
               id='dropdownMenuButton2'
               role='button'
               data-bs-toggle='dropdown'
@@ -129,23 +134,24 @@ const Navbar = () => {
               <li>
                 <a
                   className=' dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100'
-                  href='#'>
-                  Action
+                  href='/#'>
+                  All Boards
                 </a>
               </li>
               <li>
                 <a
                   className=' dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100'
-                  href='#'
+                  href='/#'
                 >
-                  Another action
+                  Edit Account
                 </a>
               </li>
               <li>
                 <a
                   className=' dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100'
-                  href='#'>
-                  Something else here
+                  href='/#'
+                  onClick={handleClick}>
+                  Logout
                 </a>
               </li>
             </ul>

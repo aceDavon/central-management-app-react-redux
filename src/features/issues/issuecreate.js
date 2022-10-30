@@ -5,7 +5,7 @@ import CommonModal from '../../common/commonModal';
 import CommonSelect from '../../common/commonSelect';
 import CommonTextArea from '../../common/commonTextArea';
 import FormState from '../../common/formState';
-import { addIssue, catchErr, selectAllIssues } from './issueSlice';
+import { addIssue, catchErr, handleModal, selectAllIssues } from './issueSlice';
 const categoryList = [
   { label: 'Personal', id: 1 },
   { label: 'Work', id: 2 },
@@ -64,6 +64,7 @@ const Issuecreate = () => {
           modalBody={modalBody}
           modalHeader={modalHeader}
           btnText={btnText}
+          dispatcher={handleModal}
         />
       )}
       <h1 className='text-blue-500 text-4xl'>Create Issues</h1>
