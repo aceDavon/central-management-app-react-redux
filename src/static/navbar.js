@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAllTasks } from '../features/tasks/taskSlice';
 import { Bell, Hamburger } from '../Icons';
 import Logo from '../app/img/logo.png';
-import { logout } from '../features/users/userSlice';
+import { logout, selectAllUsers } from '../features/users/userSlice';
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const { tasks } = useSelector(selectAllTasks);
+  const { isLoggedIn } = useSelector(selectAllUsers);
   const handleClick = () => {
     dispatch(logout());
   }
@@ -148,10 +149,10 @@ const Navbar = () => {
               </li>
               <li>
                 <a
-                  className=' dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100'
-                  href='/#'
-                  onClick={handleClick}>
-                  Logout
+                  className='dropdown-item text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-gray-700 hover:bg-gray-100 cursor-pointer'
+                  href={!isLoggedIn && "/users"}
+                  onClick={isLoggedIn && handleClick}>
+                  {isLoggedIn ? "Logout" : "Login"}
                 </a>
               </li>
             </ul>
