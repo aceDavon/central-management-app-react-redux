@@ -19,11 +19,13 @@ function App() {
       <Navbar />
       <div className="flex gap-1 w-full">
         <div className="hidden lg:inline-block">
-          { isLoggedIn && <SideBar /> }
+          {isLoggedIn && <SideBar />}
         </div>
         <Outlet />
       </div>
-      <Footer />
+      <div className="relative bottom-0">
+        <Footer />
+      </div>
     </div>
   );
 }

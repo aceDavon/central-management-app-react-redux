@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import FormState from "../../common/formState";
 import { Facebook, LinkedIn, Twitter } from "../../Icons";
-import { failedLogin, login, selectAllUsers } from "./userSlice";
+import { clearMsg, failedLogin, login, selectAllUsers } from "./userSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -23,9 +23,10 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const auth = allUsers.find((x) => x.email === value.email);
+    const auth = allUsers.find((x) => x.email === value.email && x.password === value.psw);
     if (validate() && auth) {
-      setMsg1('Verifying, please wait...')
+      dispatch(clearMsg());
+      setMsg1('Verifying, please wait...');
       return setTimeout(() => {
         dispatch(login(auth));
         navigate("/users/dashboard");
@@ -35,10 +36,10 @@ const Login = () => {
   };
 
   return (
-    <section className="h-screen">
-      <div className="px-6 h-full text-gray-800">
+    <section className="h-full w-full lg:my-2 my-48">
+      <div className="px-6 h-full py-4 text-gray-800">
         <div className="flex xl:justify-center lg:justify-between justify-center items-center flex-wrap h-full g-6">
-          <div className="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0">
+          <div className="grow-0 shrink-1 md:shrink-0 basis-auto xl:w-6/12 lg:w-6/12 md:w-9/12 mb-12 md:mb-0 md:inline-block hidden">
             <img
               src="https://media.istockphoto.com/vectors/register-account-submit-access-login-password-username-internet-vector-id1281150061?k=20&m=1281150061&s=612x612&w=0&h=wpCvmggedXRECWK-FVL98MMllubyevIrXuUu50fdCqE="
               className="w-full"

@@ -37,11 +37,11 @@ const taskSlice = createSlice({
             title,
             description,
             excerpts,
-            comments: {
+            comments: [{
               author: '',
               title: '',
               body: '',
-            },
+            }],
             category,
             priority: 'default',
             date: intervalToDuration({

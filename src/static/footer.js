@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className='bg-gray-100 text-center'>
+    <footer className='bg-gray-100 text-center absolute w-full'>
       <div className='px-6 pt-6'>
         <form action=''>
           <div className='grid md:grid-cols-3 gird-cols-1 gap-4 justify-center items-center'>

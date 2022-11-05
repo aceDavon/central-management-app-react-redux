@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { sub } from 'date-fns';
-import { v4 as uuid } from 'uuid';
+// import { v4 as uuid } from 'uuid';
 
 const adminId = [1, 2, 3, 4, 5];
 const initialState = {
@@ -50,11 +50,14 @@ const userSlice = createSlice({
       state.authUser = payload;
       state.isLoggedIn = true;
       state.msg = "Logged in successfully, redirecting to dashboard";
-      const permission = adminId.find((x) => x === payload.id);
+      const permission = adminId.includes(payload.id);
       permission ? (state.isAdmin = true) : (state.isAdmin = false);
     },
     failedLogin: (state) => {
       state.msg = "User with details not found, Please try with valid credentials"
+    },
+    clearMsg: (state) => {
+      state.msg = ''
     },
     logout: (state) => {
       state.authUser = {};
@@ -76,13 +79,14 @@ const userSlice = createSlice({
       taskData.filter((x) => x.id !== id);
       state.reports.taskReject = `task ${id} rejected`;
     },
-    assignTask: (state, { payload }) => {
+    assignTasks: (state, {payload}) => {
       const { id, data } = payload;
-      state.allUsers = state.allUsers.map((x) =>
-        x.id === id
-          ? x.tasks.concat(data)
-          : (state.reports.taskAssign = 'User not found, assign failed!')
-      );
+      state.allUsers = state.allUsers.map(x => {
+        if(x.id == id) {
+          return {...x, tasks: x.tasks.concat(data)}
+        };
+        return x;
+      });
     },
   },
   extraReducers: (Builder) => {
@@ -91,11 +95,12 @@ const userSlice = createSlice({
     })
       .addCase(fetchUsers.fulfilled, (state, { payload }) => {
         // const obj = payload.data;
+        // Replace with uuid when connected to a database
+        let initialId = 0;
         const data = payload.map((x) => {
-          const initialId = uuid();
           return {
             ...x,
-            id: initialId.slice(0, 8),
+            id: initialId += 1,
             date: sub(new Date(), { minutes: 5 }),
             tasks: [],
           };
@@ -110,7 +115,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { addUser, login, failedLogin, logout } = userSlice.actions;
+export const { addUser, login, failedLogin, logout, clearMsg, assignTasks } = userSlice.actions;
 
 export const selectAllUsers = (state) => state.users;
 
