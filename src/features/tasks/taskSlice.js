@@ -15,8 +15,6 @@ const initialState = {
   msg: '',
 };
 
-const initialId = uuid();
-
 const taskSlice = createSlice({
   name: 'tasks',
   initialState,
@@ -33,7 +31,7 @@ const taskSlice = createSlice({
         return {
           payload: {
             status: 'awaiting',
-            id: initialId.slice(2, 9),
+            id: uuid().slice(8, 13),
             title,
             description,
             excerpts,
