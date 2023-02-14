@@ -5,6 +5,13 @@ import ResponsiveAppBar from './static/Navbar/Navbar';
 import BasicTextFields from './Common/Inputs/CommonTextInput';
 
 function App() {
+  const dispatch = useDispatch();
+  const { isLoggedIn } = useSelector(selectAllUsers);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, []);
+
   return (
     <Box>
       <ResponsiveAppBar />
